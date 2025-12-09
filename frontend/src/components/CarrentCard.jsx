@@ -36,6 +36,16 @@ const CarrentCard = ({
     return `${apiUrl}${filename.startsWith("/") ? "" : "/"}${filename}`;
   };
 
+  const onRentClick = (e) => {
+    e.stopPropagation();
+
+    if (!diffDays || diffDays <= 0) {
+      alert("Please select pick-up and return dates first!");
+    } else {
+      handleBookNow(car._id);
+    }
+  };
+
   return (
     <div className={styles.offerCard} style={{ position: "relative" }}>
       {isAdmin && (
@@ -74,12 +84,9 @@ const CarrentCard = ({
             {!isAdmin && (
               <button
                 className="book-now-button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleBookNow(car._id); 
-                }}
+                onClick={onRentClick}
               >
-                {diffDays > 0 ? "Rent Car" : "Select Dates First"}
+                Rent Car
               </button>
             )}
           </div>
